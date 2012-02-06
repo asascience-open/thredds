@@ -62,6 +62,7 @@ public class HtmlConfig
 
   private String pageCssUrl;
   private String catalogCssUrl;
+  private String googleTrackingCode;
 
   private String folderIconUrl;
   private String folderIconAlt;
@@ -204,6 +205,22 @@ public class HtmlConfig
 
   public void setCatalogCssUrl( String catalogCssUrl ) {
     this.catalogCssUrl = catalogCssUrl;
+  }
+  
+  /**
+   * Return the URL to the CSS file used for catalog HTML pages.
+   *
+   * <p>Note: A relative URL is considered relative to the webapp context path.
+   * That is, it is relative to "http://server:port/thredds/".
+   *
+   * @return the URL to the CSS file used for catalog HTML pages.
+   */
+  public String getGoogleTrackingCode() {
+    return googleTrackingCode;
+  }
+
+  public void setGoogleTrackingCode( String googleTrackingCode ) {
+    this.googleTrackingCode = googleTrackingCode;
   }
 
   /**
@@ -405,6 +422,7 @@ public class HtmlConfig
   {
     model.put( "catalogCssUrl", this.getCatalogCssUrl());
     model.put( "standardCssUrl", this.getPageCssUrl());
+    model.put( "googleTrackingCode", this.getGoogleTrackingCode());
     model.put( "datasetIconAlt", this.getDatasetIconAlt());
     model.put( "datasetIconUrl", this.getDatasetIconUrl());
     model.put( "folderIconAlt", this.getFolderIconAlt());

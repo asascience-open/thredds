@@ -128,6 +128,23 @@ public class HtmlWriter {
         .append( this.htmlConfig.prepareUrlStringForHtml( this.htmlConfig.getPageCssUrl() ))
         .append("' type='text/css' >").toString();
   }
+  
+  public String getGoogleTrackingContent() {
+    return new StringBuilder()            
+        .append("<script type='text/javascript'>")
+        .append("var _gaq = _gaq || [];")
+        .append("_gaq.push(['_setAccount', '")
+        .append( this.htmlConfig.getGoogleTrackingCode() )
+        .append("']);")
+        .append("_gaq.push(['_trackPageview']);")
+
+        .append("(function() {")
+        .append("var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;")
+        .append("ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';")
+        .append("    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);")
+        .append("})();")
+        .append("</script>").toString();
+  }
 
   //  public static final String UNIDATA_HEAD
   public String getUserHead() {
@@ -315,6 +332,7 @@ public class HtmlWriter {
             .append( this.htmlConfig.prepareUrlStringForHtml( this.htmlConfig.getWebappDocsUrl() ) )
             .append( "'> Documentation</a>" );
     sb.append( "</h3>\n" );
+    sb.append( this.getGoogleTrackingContent() );
   }
 
   private void appendWebappFooter( StringBuilder sb )
@@ -763,6 +781,8 @@ public class HtmlWriter {
     if ( isLocalCatalog )
       ViewServlet.showViewers( sb, dataset, request );
 
+    sb.append( this.getGoogleTrackingContent() );
+    
     sb.append( "</body>\r\n" );
     sb.append( "</html>\r\n" );
 
